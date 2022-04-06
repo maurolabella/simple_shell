@@ -13,6 +13,13 @@ void shell(config *build)
 		checkAndGetLine(build);
 		if (splitString(build) == FALSE)
 			continue;
+		i = 0;
+		while (build->args[i])
+		{
+			printf("%s\n", build->args[i]);
+			i++;
+		}
+		printf("%lu\n",i);
 		if (findBuiltIns(build) == TRUE)
 			continue;
 		checkPath(build);
