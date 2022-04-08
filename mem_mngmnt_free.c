@@ -1,27 +1,27 @@
 #include "main.h"
 
 /**
- * freeMembers - frees build config members
- * @build: input build
+ * freeMembers - frees cart config members
+ * @cart: input cart
  */
-void freeMembers(config *build)
+void freeMembers(config *cart)
 {
-	if (build->env)
-		freeList(build->env);
-	if (build->args)
-		freeArgs(build->args);
-	if (build->buffer)
-		free(build->buffer);
+	if (cart->env)
+		freeList(cart->env);
+	if (cart->args)
+		freeArgs(cart->args);
+	if (cart->buffer)
+		free(cart->buffer);
 }
 
 /**
  * freeArgsAndBuffer - frees args and buffer
- * @build: input build
+ * @cart: input cart
  */
-void freeArgsAndBuffer(config *build)
+void freeArgsAndBuffer(config *cart)
 {
-	freeArgs(build->args);
-	free(build->buffer);
+	freeArgs(cart->args);
+	free(cart->buffer);
 }
 
 /**

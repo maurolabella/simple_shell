@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * insertNullByte - inserts null byte at given index
+ * insertNull - inserts null byte at given index
  * @str: input string
  * @index: index to insert null byte
  */
-void insertNullByte(char *str, unsigned int index)
+void insertNull(char *str, unsigned int index)
 {
 	str[index] = '\0';
 }

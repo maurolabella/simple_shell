@@ -3,30 +3,30 @@
 /**
  * splitString - splits string into an array of strings
  * separated by spaces
- * @build: input build
+ * @cart: input cart
  * Return: TRUE if able to split, FALSE if not
  */
-int splitString(config *build)
+int splitString(config *cart)
 {
 	register unsigned int i = 0;
 	char *tok, *cpy;
 
-	if (countWords(build->buffer) == 0)
+	if (countWords(cart->buffer) == 0)
 	{
-		build->args = NULL;
-		free(build->buffer);
+		cart->args = NULL;
+		free(cart->buffer);
 		return (FALSE);
 	}
-	build->args = malloc((countWords(build->buffer) + 1) * sizeof(char *));
-	cpy = _strdup(build->buffer);
+	cart->args = malloc((countWords(cart->buffer) + 1) * sizeof(char *));
+	cpy = _strdup(cart->buffer);
 	tok = _strtok(cpy, " ");
 	while (tok)
 	{
-		build->args[i] = _strdup(tok);
+		cart->args[i] = _strdup(tok);
 		tok = _strtok(NULL, " ");
 		i++;
 	}
-	build->args[i] = NULL;
+	cart->args[i] = NULL;
 	free(cpy);
 	return (TRUE);
 }
@@ -39,19 +39,25 @@ int splitString(config *build)
 unsigned int countWords(char *str)
 {
 	register int words = 0;
-	int wordOn = FALSE;
+	/* int wordOn = FALSE;*/
 
 	while (*str)
 	{
-		if (isSpace(*str) && wordOn)
-			wordOn = FALSE;
-		else if (!isSpace(*str) && !wordOn)
-		{
-			wordOn = TRUE;
+		if (*str != ' ' && (!*(str + 1) || (*(str + 1) == ' ')))
 			words++;
-		}
 		str++;
 	}
+
+	/**	{
+			if (isSpace(*str) && wordOn)
+				wordOn = FALSE;
+			else if (!isSpace(*str) && !wordOn)
+			{
+				wordOn = TRUE;
+				words++;
+			}
+			str++;
+		}*/
 	return (words);
 }
 

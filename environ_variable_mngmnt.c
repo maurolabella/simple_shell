@@ -26,69 +26,69 @@ char *_getenv(char *input, char **environ)
 
 /**
  * envFunc - prints the environment
- * @build: input build
+ * @cart: input cart
  * Return: Always 1
  */
-int envFunc(config *build)
+int envFunc(config *cart)
 {
-	printList(build->env);
+	printList(cart->env);
 	return (1);
 }
 
 /**
  * setenvFunc - adds env variable if it does not exist;
  * modify env variable if it does
- * @build: input build
+ * @cart: input cart
  * Return: Always 1
  */
-int setenvFunc(config *build)
+int setenvFunc(config *cart)
 {
 	register int index, len;
 	static char buffer[BUFSIZE];
 
-	if (countArgs(build->args) != 3)
+	if (countArgs(cart->args) != 3)
 	{
 		errno = EWSIZE;
-		errorHandler(build);
+		errorHandler(cart);
 		return (1);
 	}
-	len = _strlen(build->args[1]) + _strlen(build->args[2]) + 2;
-	_strcat(buffer, build->args[1]);
+	len = _strlen(cart->args[1]) + _strlen(cart->args[2]) + 2;
+	_strcat(buffer, cart->args[1]);
 	_strcat(buffer, "=");
-	_strcat(buffer, build->args[2]);
-	insertNullByte(buffer, len - 1);
-	index = searchNode(build->env, build->args[1]);
+	_strcat(buffer, cart->args[2]);
+	insertNull(buffer, len - 1);
+	index = searchNode(cart->env, cart->args[1]);
 	if (index == -1)
 	{
-		addNodeEnd(&build->env, buffer);
-		insertNullByte(buffer, 0);
+		nodeAppend(&cart->env, buffer);
+		insertNull(buffer, 0);
 		return (1);
 	}
-	deleteNodeAtIndex(&build->env, index);
-	addNodeAtIndex(&build->env, index, buffer);
-	insertNullByte(buffer, 0);
+	deleteNodeAtIndex(&cart->env, index);
+	addNodeAtIndex(&cart->env, index, buffer);
+	insertNull(buffer, 0);
 	return (1);
 }
 
 /**
  * unsetenvFunc - deletes env variable if exists;
  * will only accept valid variables names
- * @build: input build
+ * @cart: input cart
  * Return: Always 1
  */
-int unsetenvFunc(config *build)
+int unsetenvFunc(config *cart)
 {
 	register int foundVar, i = 1;
 	int foundMatch = FALSE;
 
-	while (build->args[i])
+	while (cart->args[i])
 	{
-		if (_isalpha(build->args[i][0]) || build->args[i][0] == '_')
+		if (_isalpha(cart->args[i][0]) || cart->args[i][0] == '_')
 		{
-			foundVar = searchNode(build->env, build->args[i]);
+			foundVar = searchNode(cart->env, cart->args[i]);
 			if (foundVar > -1)
 			{
-				deleteNodeAtIndex(&build->env, foundVar);
+				deleteNodeAtIndex(&cart->env, foundVar);
 				foundMatch = TRUE;
 			}
 		}
@@ -97,7 +97,7 @@ int unsetenvFunc(config *build)
 	if (foundMatch == FALSE)
 	{
 		errno = ENOSTRING;
-		errorHandler(build);
+		errorHandler(cart);
 	}
 	return (1);
 }

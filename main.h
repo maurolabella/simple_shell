@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-/* ERRORS */
+/* ERRORS & OTHERS*/
 #define TRUE 1
 #define FALSE 0
 #define BUFSIZE 256
@@ -36,9 +36,9 @@ typedef struct linkedList
 } link_l;
 
 /**
- * struct configurations - configuration of build settings
+ * struct configurations - configuration of cart settings
  * @env: linked list of local env variables
- * @envList: array of env variables to put into execve
+ * @envArr: array of env variables to put into execve
  * @args: array of argument strings
  * @buffer: string buffer of user input
  * @path: array of $PATH locations
@@ -50,7 +50,7 @@ typedef struct linkedList
 typedef struct set_up
 {
 	link_l *env;
-	char **envList;
+	char **envArr;
 	char **args;
 	char *buffer;
 	char *path;
@@ -68,27 +68,27 @@ typedef struct set_up
 typedef struct builtInCommands
 {
 	char *command;
-	int (*func)(config *build);
+	int (*func)(config *cart);
 } type_b;
 
 /* main */
-config *configInit(config *build);
+config *configInit(config *cart);
 
 /* shell_live */
-void shell(config *build);
-void checkAndGetLine(config *build);
-void forkAndExecute(config *build);
-void stripComments(char *str);
-void convertLLtoArr(config *build);
+void shell(config *cart);
+void lineCollector(config *cart);
+void fork_exec_wait(config *cart);
+void commentStripper(char *str);
+void convertLLtoArr(config *cart);
 
 /* shell_complement_A */
-void insertNullByte(char *str, unsigned int index);
+void insertNull(char *str, unsigned int index);
 void displayPrompt(void);
 void displayNewLine(void);
 void sigintHandler(int sigint);
 
 /* string_complements_A */
-int splitString(config *build);
+int splitString(config *cart);
 unsigned int countWords(char *s);
 int isSpace(char c);
 
@@ -109,8 +109,8 @@ int countArgs(char **args);
 int _atoi(char *s);
 
 /* linked_list_complement_A*/
-link_l *addNode(link_l **head, char *str);
-link_l *addNodeEnd(link_l **head, char *str);
+link_l *nodeAdd(link_l **head, char *str);
+link_l *nodeAppend(link_l **head, char *str);
 size_t printList(const link_l *h);
 int searchNode(link_l *head, char *str);
 size_t list_len(link_l *h);
@@ -122,52 +122,52 @@ link_l *addNodeAtIndex(link_l **head, int index, char *str);
 char *getNodeAtIndex(link_l *head, unsigned int index);
 
 /* built_ins */
-int findBuiltIns(config *build);
-int exitFunc(config *build);
-int historyFunc(config *build);
-int aliasFunc(config *build);
+int findBuiltIns(config *cart);
+int exitFunc(config *cart);
+int historyFunc(config *cart);
+int aliasFunc(config *cart);
 
 /* cd */
 int cdFunc(config *);
-int cdToHome(config *build);
-int cdToPrevious(config *build);
-int cdToCustom(config *build);
-int updateEnviron(config *build);
+int cdToHome(config *cart);
+int cdToPrevious(config *cart);
+int cdToCustom(config *cart);
+int updateEnviron(config *cart);
 
 /* cd_complement_A */
-int updateOld(config *build);
-int updateCur(config *build, int index);
+int updateOld(config *cart);
+int updateCur(config *cart, int index);
 
 /* environ_variable_mngmnt */
 char *_getenv(char *input, char **environ);
-int envFunc(config *build);
-int setenvFunc(config *build);
-int unsetenvFunc(config *build);
+int envFunc(config *cart);
+int setenvFunc(config *cart);
+int unsetenvFunc(config *cart);
 int _isalpha(int c);
 
 /* help_0 */
-int helpFunc(config *build);
+int helpFunc(config *cart);
 int displayHelpMenu(void);
-int helpExit(config *build);
-int helpEnv(config *build);
-int helpHistory(config *build);
+int helpExit(config *cart);
+int helpEnv(config *cart);
+int helpHistory(config *cart);
 
 /* help_1 */
-int helpAlias(config *build);
+int helpAlias(config *cart);
 int helpCd(config *biuld);
-int helpSetenv(config *build);
-int helpUnsetenv(config *build);
-int helpHelp(config *build);
+int helpSetenv(config *cart);
+int helpUnsetenv(config *cart);
+int helpHelp(config *cart);
 
 /* error_mngmnt */
-void errorHandler(config *build);
+void errorHandler(config *cart);
 unsigned int countDigits(int num);
 char *itoa(unsigned int num);
 char *getErrorMessage();
 
 /* check_path */
 int checkPath(config *);
-int checkEdgeCases(config *build);
+int checkEdgeCases(config *cart);
 
 /* welcome */
 void welcome_screen_1(void);
@@ -178,8 +178,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_memcpy(char *dest, char *src, unsigned int n);
 
 /* mem_mngmnt_free */
-void freeMembers(config *build);
-void freeArgsAndBuffer(config *build);
+void freeMembers(config *cart);
+void freeArgsAndBuffer(config *cart);
 void freeArgs(char **args);
 void freeList(link_l *head);
 

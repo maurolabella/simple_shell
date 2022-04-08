@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- * addNode - adds a new node at the beginning of a link_l list
+ * nodeAdd - adds a new node at the beginning of a link_l list
  * @head: reference to head of linked list
  * @str: string to be added on new node
  * Return: address of new head;
  */
-link_l *addNode(link_l **head, char *str)
+link_l *nodeAdd(link_l **head, char *str)
 {
 	link_l *newNode;
 	char *newStr;
@@ -32,12 +32,12 @@ link_l *addNode(link_l **head, char *str)
 }
 
 /**
- * addNodeEnd - adds a new node at the end of a link_l list;
+ * nodeAppend - adds a new node at the end of a link_l list;
  * @head: reference to head of list
  * @str: string to be added to linked list
  * Return: address of new node
  */
-link_l *addNodeEnd(link_l **head, char *str)
+link_l *nodeAppend(link_l **head, char *str)
 {
 	link_l *newNode;
 	link_l *last = *head;

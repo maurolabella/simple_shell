@@ -2,13 +2,13 @@
 
 /**
  * findBuiltIns - validates if command is builtin and executes
- * @build: input build
+ * @cart: input cart
  * Return: TRUE if found, FALSE if not
  */
-int findBuiltIns(config *build)
+int findBuiltIns(config *cart)
 {
 	register int i = 0;
-	type_b getBuiltIns[] = {
+	type_b BuiltIns[] = {
 			{"exit", exitFunc},
 			{"env", envFunc},
 			{"history", historyFunc},
@@ -19,12 +19,12 @@ int findBuiltIns(config *build)
 			{"help", helpFunc},
 			{NULL, NULL}};
 
-	while (getBuiltIns[i].command)
+	while (BuiltIns[i].command)
 	{
-		if (_strcmp(build->args[0], getBuiltIns[i].command) == 0)
+		if (_strcmp(cart->args[0], BuiltIns[i].command) == 0)
 		{
-			getBuiltIns[i].func(build);
-			freeArgsAndBuffer(build);
+			BuiltIns[i].func(cart);
+			freeArgsAndBuffer(cart);
 			return (TRUE);
 		}
 		i++;
@@ -34,32 +34,32 @@ int findBuiltIns(config *build)
 
 /**
  * exitFunc - exits the application
- * @build: input build
+ * @cart: input cart
  * Return: 1 on success, 0 on failure
  */
-int exitFunc(config *build)
+int exitFunc(config *cart)
 {
 	register int argCount, exitStatus;
 
-	argCount = countArgs(build->args);
+	argCount = countArgs(cart->args);
 	if (argCount == 1)
 	{
-		freeMembers(build);
-		if (build->errorStatus)
-			exit(build->errorStatus);
+		freeMembers(cart);
+		if (cart->errorStatus)
+			exit(cart->errorStatus);
 		exit(EXIT_SUCCESS);
 	}
 	else if (argCount > 1)
 	{
-		exitStatus = _atoi(build->args[1]);
+		exitStatus = _atoi(cart->args[1]);
 		if (exitStatus == -1)
 		{
 			errno = EILLEGAL;
-			build->errorStatus = 2;
-			errorHandler(build);
+			cart->errorStatus = 2;
+			errorHandler(cart);
 			return (0);
 		}
-		freeMembers(build);
+		freeMembers(cart);
 		exit(exitStatus);
 	}
 	return (1);
@@ -67,28 +67,28 @@ int exitFunc(config *build)
 
 /**
  * historyFunc - displays command history
- * @build: input build
+ * @cart: input cart
  * Return: 1 on success, 0 on failure
  */
-int historyFunc(config *build)
+int historyFunc(config *cart)
 {
 	char *str = "Currently in development\n";
 
-	(void)build;
+	(void)cart;
 	write(STDOUT_FILENO, str, _strlen(str));
 	return (1);
 }
 
 /**
  * aliasFunc - displays local aliases
- * @build: input build
+ * @cart: input cart
  * Return: 1 on success, 0 on failure
  */
-int aliasFunc(config *build)
+int aliasFunc(config *cart)
 {
 	char *str = "Currently in development\n";
 
-	(void)build;
+	(void)cart;
 	write(STDOUT_FILENO, str, _strlen(str));
 	return (1);
 }

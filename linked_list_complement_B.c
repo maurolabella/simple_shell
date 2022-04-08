@@ -48,7 +48,7 @@ link_l *generateLinkedList(char **array)
 	head = NULL;
 	while (array[i])
 	{
-		addNodeEnd(&head, array[i]);
+		nodeAppend(&head, array[i]);
 		i++;
 	}
 	return (head);

@@ -8,31 +8,31 @@
  */
 int main(int ac, char **av)
 {
-	config build;
+	config cart;
 
 	(void)ac;
 	signal(SIGINT, sigintHandler);
-	configInit(&build);
-	build.shellName = av[0];
-	shell(&build);
+	configInit(&cart);
+	cart.shellName = av[0];
+	shell(&cart);
 	return (0);
 }
 
 /**
  * configInit - initialize member values for config struct
- * @build: input build
- * Return: build with initialized members
+ * @cart: input cart
+ * Return: cart with initialized members
  */
-config *configInit(config *build)
+config *configInit(config *cart)
 {
-	build->env = generateLinkedList(environ);
-	build->envList = NULL;
-	build->args = NULL;
-	build->buffer = NULL;
-	build->path = _getenv("PATH", environ);
-	build->fullPath = NULL;
-	build->lineCounter = 0;
-	build->shellName = NULL;
-	build->errorStatus = 0;
-	return (build);
+	cart->env = generateLinkedList(environ);
+	cart->envArr = NULL;
+	cart->args = NULL;
+	cart->buffer = NULL;
+	cart->path = _getenv("PATH", environ);
+	cart->fullPath = NULL;
+	cart->lineCounter = 0;
+	cart->shellName = NULL;
+	cart->errorStatus = 0;
+	return (cart);
 }

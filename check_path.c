@@ -2,9 +2,9 @@
 
 /**
  * checkPath - searches $PATH for directory of command
- * @build: input build
+ * @cart: input cart
  */
-int checkPath(config *build)
+int checkPath(config *cart)
 {
 	register int len;
 	static char buffer[BUFSIZE];
@@ -12,59 +12,59 @@ int checkPath(config *build)
 	char *tok, *copy, *delim = ":", *tmp;
 	int inLoop = FALSE;
 
-	if (checkEdgeCases(build))
+	if (checkEdgeCases(cart))
 		return (TRUE);
-	copy = _strdup(build->path);
+	copy = _strdup(cart->path);
 	tok = _strtok(copy, delim);
 	while (tok)
 	{
 		tmp = inLoop ? tok - 2 : tok;
-		if (*tmp == 0 && stat(build->args[0], &st) == 0)
+		if (*tmp == 0 && stat(cart->args[0], &st) == 0)
 		{
-			build->fullPath = build->args[0];
+			cart->fullPath = cart->args[0];
 			free(copy);
 			return (TRUE);
 		}
-		len = _strlen(tok) + _strlen(build->args[0]) + 2;
+		len = _strlen(tok) + _strlen(cart->args[0]) + 2;
 		_strcat(buffer, tok);
 		_strcat(buffer, "/");
-		_strcat(buffer, build->args[0]);
-		insertNullByte(buffer, len - 1);
+		_strcat(buffer, cart->args[0]);
+		insertNull(buffer, len - 1);
 		if (stat(buffer, &st) == 0)
 		{
 			free(copy);
-			build->fullPath = buffer;
+			cart->fullPath = buffer;
 			return (TRUE);
 		}
-		insertNullByte(buffer, 0);
+		insertNull(buffer, 0);
 		tok = _strtok(NULL, delim);
 		inLoop = TRUE;
 	}
-	build->fullPath = build->args[0];
+	cart->fullPath = cart->args[0];
 	free(copy);
 	return (FALSE);
 }
 
 /**
  * checkEdgeCases - helper func for check path to check edge cases
- * @build: input build
+ * @cart: input cart
  * Return: TRUE if found, FALSE if not
  */
-int checkEdgeCases(config *build)
+int checkEdgeCases(config *cart)
 {
 	char *copy;
 	struct stat st;
 
-	copy = _strdup(build->path);
+	copy = _strdup(cart->path);
 	if (!copy)
 	{
-		build->fullPath = build->args[0];
+		cart->fullPath = cart->args[0];
 		free(copy);
 		return (TRUE);
 	}
-	if (*copy == ':' && stat(build->args[0], &st) == 0)
+	if (*copy == ':' && stat(cart->args[0], &st) == 0)
 	{
-		build->fullPath = build->args[0];
+		cart->fullPath = cart->args[0];
 		free(copy);
 		return (TRUE);
 	}
