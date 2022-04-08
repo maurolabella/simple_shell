@@ -14,12 +14,11 @@ char *_strtok(char *str, char *delim)
 
 	if (str == NULL)
 		str = lastptr;
-	do
-	{
+	do	{
 		ch = *str++;
 		if (!ch)
 			return (NULL);
-	} while (_strchr(delim, ch));
+		} while (_strchr(delim, ch));
 	str--;
 	lastptr = str + _strcspn(str, delim);
 	if (*lastptr)
@@ -60,8 +59,13 @@ char *_strchr(char *s, char c)
 	{
 		x = *s++;
 		if (x == c)
+		{
 			return (s - 1);
+		}
 		if (!x)
+		{
 			return (NULL);
+		}
 	}
+
 }

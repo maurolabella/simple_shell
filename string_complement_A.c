@@ -48,16 +48,18 @@ unsigned int countWords(char *str)
 		str++;
 	}
 
-	/**	{
-			if (isSpace(*str) && wordOn)
-				wordOn = FALSE;
-			else if (!isSpace(*str) && !wordOn)
-			{
-				wordOn = TRUE;
-				words++;
-			}
-			str++;
-		}*/
+	/*
+	 *	{
+	 *		if (isSpace(*str) && wordOn)
+	 *			wordOn = FALSE;
+	 *		else if (!isSpace(*str) && !wordOn)
+	 *		{
+	 *			wordOn = TRUE;
+	 *			words++;
+	 *		}
+	 *		str++;
+	 *	}
+	*/
 	return (words);
 }
 
