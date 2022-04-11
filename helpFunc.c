@@ -21,6 +21,7 @@ int helpFunc(config *cart)
 	int foundCommand = FALSE;
 
 	if (argCount == 1)
+	{
 		return (displayHelpMenu());
 		while (j < argCount)
 		{
@@ -42,6 +43,7 @@ int helpFunc(config *cart)
 			errno = ENOBUILTIN;
 			errorHandler(cart);
 		}
+	}
 return (1);
 }
 
