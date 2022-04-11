@@ -6,20 +6,13 @@
  */
 void shell(config *cart)
 {
-/**	size_t i = 0;*/
+
 
 	while (TRUE)
 	{
 		lineCollector(cart);
 		if (splitString(cart) == FALSE)
 			continue;
-		/**i = 0;
-		while (cart->args[i])
-		{
-			printf("%s\n", cart->args[i]);
-			i++;
-		}
-		printf("%lu\n", i);*/
 		if (findBuiltIns(cart) == TRUE)
 			continue;
 		checkPath(cart);
