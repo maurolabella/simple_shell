@@ -3,6 +3,7 @@
 /**
  * checkPath - searches $PATH for directory of command
  * @cart: input cart
+ * Return: False
  */
 int checkPath(config *cart)
 {
