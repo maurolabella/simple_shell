@@ -13,6 +13,7 @@ int main(int ac, char **av)
 	(void)ac;
 	signal(SIGINT, sigintHandler);
 	configInit(&cart);
+	/**printf("cart->path: %s\n", cart.path);*/
 	cart.shellName = av[0];
 	shell(&cart);
 	return (0);

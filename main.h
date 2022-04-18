@@ -139,7 +139,7 @@ int updateOld(config *cart);
 int updateCur(config *cart, int index);
 
 /* environ_variable_mngmnt */
-char *_getenv(char *input, char **environ);
+char *_getenv(char *input, char **array);
 int envFunc(config *cart);
 int setenvFunc(config *cart);
 int unsetenvFunc(config *cart);

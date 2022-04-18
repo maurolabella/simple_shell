@@ -6,20 +6,24 @@
  * @environ: local environmental variables
  * Return: string of env variable
  */
-char *_getenv(char *input, char **environ)
+char *_getenv(char *input, char **array)
 {
+	char *current = NULL;
 	register int i = 0;
 	char *tok, *right;
 
-	while (environ[i])
+	while (array[i])
 	{
-		tok = _strtok(environ[i], "=");
+		current = _strdup(array[i]);
+		tok = _strtok(current, "=");
 		if (_strcmp(tok, input) == 0)
 		{
-			right = _strtok(NULL, "=");
+			right = _strdup(_strtok(NULL, "="));
+			free(current);
 			return (right);
 		}
 		i++;
+		free(current);
 	}
 	return (NULL);
 }
