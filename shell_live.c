@@ -9,7 +9,6 @@ void shell(config *cart)
 
 	while (TRUE)
 	{
-		cart->path = _getenv("PATH", environ);
 		lineCollector(cart);
 		if (splitString(cart) == FALSE)
 			continue;
